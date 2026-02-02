@@ -47,9 +47,8 @@ EC2 Instance(s) (Ubuntu 24.04 + Apache)
 
 ## 📁 Project Structure
 
-```
-
 terraform_project/
+│
 ├── main.tf
 ├── variables.tf
 ├── outputs.tf
@@ -58,7 +57,6 @@ terraform_project/
 ├── terraform.tfvars.example
 ├── .gitignore
 └── README.md
-
 ````
 
 ---
