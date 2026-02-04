@@ -191,6 +191,4 @@ This project helped solidify understanding of:
 **Balamanikanta Anantha**
 Terraform | AWS | DevOps | Cloud Engineering
 
-```
 
----
