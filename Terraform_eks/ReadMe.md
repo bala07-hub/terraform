@@ -1,5 +1,3 @@
-This is a professional and comprehensive `README.md` file tailored for your **Terraform EKS** project. It includes architectural details, prerequisites, usage instructions, and best practices.
-
 ---
 
 # Amazon EKS Infrastructure with Terraform
