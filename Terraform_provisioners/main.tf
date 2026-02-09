@@ -1,7 +1,7 @@
 //key-pair for ec2
 resource "aws_key_pair" "example" {
   key_name   = "terraform-provisioner-demo"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = file("~/Devops/Terraform/Terraform_provisioners/public_privatekey.pub")
 }
 //vpc creation
 resource "aws_vpc" "my-vpc" {
@@ -34,7 +34,7 @@ resource "aws_route_table_association" "rta1" {
 
 resource "aws_security_group" "webSg" {
   name   = var.aws_sg_tagname
-  vpc_id = aws_vpc.myvpc.id
+  vpc_id = aws_vpc.my-vpc.id
 
   ingress {
     description = "HTTP from VPC"
@@ -68,18 +68,19 @@ resource "aws_instance" "server" {
   instance_type          = var.aws_ec2_instanceType
   key_name               = aws_key_pair.example.key_name
   vpc_security_group_ids = [aws_security_group.webSg.id]
-  subnet_id              = aws_subnet.sub1.id
+  subnet_id              = aws_subnet.subnet1.id
 
   connection {
     type        = "ssh"
-    user        = "ubuntu"              #  username for your EC2 instance
-    private_key = file("~/.ssh/id_rsa") # path to private key
+    user        = "ubuntu"
+    password    = var.pvt_key_passphrase
+    private_key = file("~/Devops/Terraform/Terraform_provisioners/public_privatekey") # path to private key
     host        = self.public_ip
   }
 
   # File provisioner to copy a file from local to the remote EC2 instance
   provisioner "file" {
-    source      = "app.py"              # Replace with the path to your local file
+    source      = "app.py"
     destination = "/home/ubuntu/app.py" # Replace with the path on the remote instance
   }
 
