@@ -1,0 +1,4 @@
+terraform plan -generate-config-out=<filename>.tf
+
+terraform import aws_instance.<resource-name> <instance-id>
+
