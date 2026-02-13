@@ -1,0 +1,20 @@
+terraform plan -generate-config-out=<filename>.tf
+
+terraform import aws_instance.<resource-name> <instance-id>
+
+echo "--- Checking for Expensive Resources ---"
+
+echo "1. Running EC2 Instances:"
+aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].[InstanceId,InstanceType]" --output table
+
+echo "2. Active EKS Clusters:"
+aws eks list-clusters --output table
+
+echo "3. Active NAT Gateways (Check these!):"
+aws ec2 describe-nat-gateways --filter "Name=state,Values=available" --query "NatGateways[*].[NatGatewayId,VpcId]" --output table
+
+echo "4. Unattached Elastic IPs (You pay for these):"
+aws ec2 describe-addresses --query "Addresses[?InstanceId==null].[PublicIp,AllocationId]" --output table
+
+echo "5. Active Load Balancers:"
+aws elbv2 describe-load-balancers --query "LoadBalancers[*].[LoadBalancerName,DNSName]" --output table
