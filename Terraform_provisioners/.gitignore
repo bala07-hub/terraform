@@ -1,0 +1,12 @@
+terraform.tfvars
+.terraform.lock.hcl
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+*.tfplan
+variables.tf
+public_privatekey
+public_privatekey.pub
